@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ArcticleDao">
+
+    <cache type="com.baizhi.cache.RedisCache"/>
+
+    <!--findAll-->
+    <select id="findAll" resultType="Arcticle">
+        select id,arcticleclass,tags,title,imgpath,content,create_date,update_date from t_arcticle
+    </select>
+
+    <!--save-->
+    <insert id="save" parameterType="Arcticle" useGeneratedKeys="true" keyProperty="id">
+        insert into t_arcticle values
+        (#{id},#{arcticleclass},#{tags},#{title},#{imgpath},#{content},#{create_date},#{update_date})
+    </insert>
+
+    <!--delete-->
+    <delete id="delete" parameterType="String">
+        delete from t_arcticle where id =#{id}
+    </delete>
+
+    <!--findOne-->
+    <select id="findOne" parameterType="String" resultType="Arcticle">
+        select id,arcticleclass,tags,title,imgpath,content,create_date,update_date from t_arcticle where id = #{id}
+    </select>
+
+    <!--findByTags-->
+    <select id="findByTags" parameterType="String" resultType="Arcticle">
+        select id,arcticleclass,tags,title,imgpath,content,create_date,update_date from t_arcticle where tags = #{tag}
+    </select>
+
+    <!--updateOne-->
+    <update id="updateOne" parameterType="Arcticle">
+        update t_arcticle set arcticleclass = #{arcticleclass}, tags =#{tags},title = #{title},imgpath = #{imgpath},
+        content = #{content},create_date = #{create_date},updatedate = #{update_date} where id = #{id}
+    </update>
+
+    <select id="findPage" resultType="Arcticle">
+          select id,arcticleclass,tags,title,imgpath,content,create_date,update_date from t_arcticle
+    </select>
+</mapper>

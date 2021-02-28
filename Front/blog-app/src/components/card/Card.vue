@@ -9,16 +9,53 @@
 <template>
     <div class="card-t">
         <el-row>
-
+          <el-col v-for="(item, index) in essayList" :key="index">
+            <el-card :body-style="{ padding: '0px'}" class="card-blog" shadow="hover">
+                <img
+                  v-lazy="item.essayImg" :key="item.essayImg"
+                  class="image"  @click="getEssayDetail(item.id)"  >
+                    <div class="card-label" style="padding: 10px;">
+                        <p class="m-card-tag" @click="goLabels(item.labelId,item.labelName)">{{item.labelName}}</p>
+                    </div>
+                    <div class="card-massges" @click="getEssayDetail(item.id)">
+                    <h3 class="card-m" style="height:30px">{{item.essayTitle}}</h3>
+                    <p class="card-m" style="height:60px">{{item.essayAbout}}</p>
+                    </div>
+                    <hr class="l-hr" style="height:0.5px;border:none;border-top:0.5px solid rgb(218, 216, 216) ;width:100%;" />
+                    <!-- <div class="bottom clearfix"> -->
+                        <p class="l-time">{{before_time(item.createTime)}}</p>
+                    <!-- </div> -->            
+            </el-card>
+        </el-col>
         </el-row>
+           <div class="el-top">
+     <el-backtop :bottom="250" :right="100" :visibility-height="400">
+        <i class="el-icon-thumb"></i>
+     </el-backtop>
+    </div>
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-
+import { Component, Prop, Provide, Vue } from 'vue-property-decorator';
+import Common from "@/utils/Common"
+import Base64 from "@/utils/Base64"
 @Component
 export default class Card extends Vue{
+
+    @Prop(Object) essayList:Object = {};
+
+    before_time:string = "";
+
+    getEssayDetail(bid:string){
+      let id= Base64.encode(bid);
+      this.$router.push(`/essaydetail/${id}`)
+    }
+
+     goLabels(blabelId:string,labelName:string){
+         let labelId= Base64.encode(blabelId);
+        this.$router.push(`/labels/${labelId}/${labelName}`)
+      }
 
 }
 </script>

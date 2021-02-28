@@ -40,7 +40,7 @@ import java.util.*;
 @Slf4j
 @CrossOrigin
 @RestController
-@RequestMapping("arcticle")
+@RequestMapping("blog")
 public class ArcticleController {
 
     @Autowired

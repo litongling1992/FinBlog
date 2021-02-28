@@ -70,7 +70,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Provide, Vue } from 'vue-property-decorator';
+import { Component, Vue, Provide, Prop, Watch} from 'vue-property-decorator';
 import Common from "@/utils/Common"
 import Base64 from "@/utils/Base64"
 import Card from "@/components/card/Card.vue"
@@ -92,6 +92,44 @@ export default class EssayDetail extends Vue{
         loading:boolean = false;
         message:string =''
         allmessages:any = [];
+
+     @Watch("id", { deep: true })
+        watchSpaceValues(newValue: string,oldVal:string) {
+                 if (!newValue) return;
+                this.id=Base64.decode(newValue),
+                this.getEssay()
+        }
+
+    getEssay(){
+          (this as any).$axios.get("http://localhost:8989/api/blog/findOne",)
+                .then((res:any) => {
+                        this.$message({
+                            message: res.data.msg,
+                            type: "success"
+        });
+
+            this.essayContent = res.data.essayContent
+            this.essayDetail = res.data
+            this.essayImg = res.data.essayImg
+            this.getListEssay(res.data.labelId,res.data.id);
+     })
+     .catch((err:any) => {
+
+     })
+    }
+
+     /**
+       * 加载essayList
+       */
+      getListEssay(labelId:string,id:string){
+           (this as any).$post('/api/blog/findEssayByRe',{
+              labelId:labelId,
+              id:id
+            })
+            .then((response:any) =>{
+              this.essayList=response.data.rows;
+            })
+      }
 
 }
 </script>

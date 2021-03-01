@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80016
 File Encoding         : 65001
 
-Date: 2021-02-24 15:03:30
+Date: 2021-03-01 17:41:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,16 +24,22 @@ CREATE TABLE `t_arcticle` (
   `arcticleclass` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `tags` varchar(40) DEFAULT NULL,
   `title` varchar(60) DEFAULT NULL,
+  `about` varchar(100) DEFAULT NULL,
   `imgpath` varchar(100) DEFAULT NULL,
   `content` mediumtext,
   `create_date` date DEFAULT NULL,
-  `undate_date` date DEFAULT NULL,
+  `update_date` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_arcticle
 -- ----------------------------
+INSERT INTO `t_arcticle` VALUES ('1', 'Life', 'Life', '生活', '1', '75956507-2e9e-4c4e-b533-fda80746d2c2.jpg', '<p>加班加班加班加班加班</p><p><img src=\"http://localhost:8888/yanger/file/getImg?path=/ueditor/img/20200717/1594978333762068549.jpg\" title=\"1594978333762068549.jpg\" alt=\"img.jpg\"/></p>', '2021-02-24', '2021-02-24');
+INSERT INTO `t_arcticle` VALUES ('2', 'Code', 'Java', '标题Java', '2', '75956507-2e9e-4c4e-b533-fda80746d2c2.jpg', '<p>加班加班加班加班加班</p><p><img src=\"http://localhost:8888/yanger/file/getImg?path=/ueditor/img/20200717/1594978333762068549.jpg\" title=\"1594978333762068549.jpg\" alt=\"img.jpg\"/></p>', '2021-03-01', '2021-03-01');
+INSERT INTO `t_arcticle` VALUES ('3', 'Code', 'Linux', 'Linux入门', '3', '75956507-2e9e-4c4e-b533-fda80746d2c2.jpg', '<p>加班加班加班加班加班</p><p><img src=\"http://localhost:8888/yanger/file/getImg?path=/ueditor/img/20200717/1594978333762068549.jpg\" title=\"1594978333762068549.jpg\" alt=\"img.jpg\"/></p>', '2021-03-01', '2021-03-01');
+INSERT INTO `t_arcticle` VALUES ('4', 'Code', 'Linux', '精通', '4', '75956507-2e9e-4c4e-b533-fda80746d2c2.jpg', '<p>加班加班加班加班加班</p><p><img src=\"http://localhost:8888/yanger/file/getImg?path=/ueditor/img/20200717/1594978333762068549.jpg\" title=\"1594978333762068549.jpg\" alt=\"img.jpg\"/></p>', '2021-03-01', '2021-03-01');
+INSERT INTO `t_arcticle` VALUES ('5', null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `t_emp`

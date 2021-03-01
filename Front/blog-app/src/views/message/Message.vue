@@ -66,13 +66,16 @@ export default class Message extends Vue{
 
    url:string ='';
 
-    created() {
+  created() {
         this.findMessage();
-        this.$router.afterEach((to,from,next)=>{
-　　　　 window,scrollTo(0,0)})
+
+        this.$router.afterEach( (to,from) => {
+          console.log(to);
+          console.log(from);
+　　　　 window.scrollTo(0,0)})
   }
 
-   loadData() {
+  loadData() {
      const pageQuery:object ={
         pageNum:this.page,
         pageSize: this.size,

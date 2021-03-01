@@ -81,11 +81,37 @@ public class ArcticleController {
         return map;
     }
 
+
+
     //根据id查询文章信息实现
     @GetMapping("findOne")
     public Arcticle findOne(String id){
         log.info("博客文章信息的id: [{}]",id);
         return empService.findOne(id);
+    }
+
+    //根据id查询文章信息实现
+    @PostMapping("findOneById")
+    public Map<String, Object> findOneById(String id){
+        log.info("博客文章信息的id: [{}]",id);
+        Map<String, Object> map = new HashMap<>();
+        try{
+            Arcticle arcticle = empService.findOne(id);
+            if(arcticle != null){
+                map.put("state",true);
+                map.put("msg","查询文章信息成功!");
+                map.put("result",arcticle);
+
+            }else {
+                map.put("state",false);
+                map.put("msg","查询失败!");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("state",false);
+            map.put("msg","查询失败!");
+        }
+        return map;
     }
 
     //删除文章信息实现
@@ -141,6 +167,17 @@ public class ArcticleController {
         return empService.findAll();
     }
 
+    //获取所有文章列表的方法
+    @GetMapping("findByTags")
+    public List<Arcticle> findByTags(String tag) {
+        return empService.findByTags(tag);
+    }
+
+    //获取所有文章标签的方法
+    @GetMapping("findTags")
+    public List<String> findTags() {
+        return empService.findTags();
+    }
 
     @CrossOrigin
     @PostMapping("findPage")

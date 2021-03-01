@@ -1,8 +1,16 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-03-01 12:11:55
+ * @LastEditTime: 2021-03-01 16:13:30
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \blog-app\src\components\footer\Footer.vue
+-->
 <template>
     <div>
       <div class="m-footer">
         <div class="m-footer-p">
-          <span class="m-footer-i">LiTonglingBlog © 2020</span>
+          <span class="m-footer-i">LiTonglingBlog © 2021</span>
           <span class="m-footer-i">&nbsp; • &nbsp;</span>
           <span> <a href="http://beian.miit.gov.cn/" class="m-footer-a" target="_blank" rel="noopener">京ICP备</a></span>
         </div>

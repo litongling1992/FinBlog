@@ -12,7 +12,7 @@
     <!--save-->
     <insert id="save" parameterType="Arcticle" useGeneratedKeys="true" keyProperty="id">
         insert into t_arcticle values
-        (#{id},#{arcticleclass},#{tags},#{title},#{imgpath},#{content},#{create_date},#{update_date})
+        (#{id},#{arcticleclass},#{tags},#{title},#{about},#{imgpath},#{content},#{create_date},#{update_date})
     </insert>
 
     <!--delete-->
@@ -22,21 +22,32 @@
 
     <!--findOne-->
     <select id="findOne" parameterType="String" resultType="Arcticle">
-        select id,arcticleclass,tags,title,imgpath,content,create_date,update_date from t_arcticle where id = #{id}
+        select id,arcticleclass,tags,title,about,imgpath,content,create_date,update_date from t_arcticle where id =
+        #{id}
     </select>
 
     <!--findByTags-->
     <select id="findByTags" parameterType="String" resultType="Arcticle">
-        select id,arcticleclass,tags,title,imgpath,content,create_date,update_date from t_arcticle where tags = #{tag}
+        select id,arcticleclass,tags,title,about,imgpath,content,create_date,update_date from t_arcticle where tags =
+        #{tag}
+    </select>
+
+    <!--findAllTags-->
+    <select id="findTags"  resultType="String">
+        SELECT t_arcticle.tags FROM t_arcticle GROUP BY t_arcticle.tags
     </select>
 
     <!--updateOne-->
     <update id="updateOne" parameterType="Arcticle">
-        update t_arcticle set arcticleclass = #{arcticleclass}, tags =#{tags},title = #{title},imgpath = #{imgpath},
+        update t_arcticle set arcticleclass = #{arcticleclass}, tags =#{tags},title = #{title},about =
+        #{about},imgpath =
+         #{imgpath},
         content = #{content},create_date = #{create_date},updatedate = #{update_date} where id = #{id}
     </update>
 
     <select id="findPage" resultType="Arcticle">
-          select id,arcticleclass,tags,title,imgpath,content,create_date,update_date from t_arcticle
+          select id,arcticleclass,tags,title,about,imgpath,content,create_date,update_date from t_arcticle
     </select>
+
+
 </mapper>

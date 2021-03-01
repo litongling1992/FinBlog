@@ -62,10 +62,8 @@ export default class Nav extends Vue{
      imgurl: string = '../../assets/img/boy.png';
 
     created () {
-        
         document.addEventListener('click',e=>{
-        const t = (this.$refs.outlineShow as Element );
-        
+        const t = (this.$refs.outlineShow as Element )
         if(!(t.contains(e.target))){
             this.divContent =false;
             this.outlineShow = true;
@@ -107,7 +105,7 @@ export default class Nav extends Vue{
     }
 
      getAllLabel(){
-         (this as any).$post('/api/blog/findAllLabel',{
+         (this as any).$post('/api/blog/findTags',{
 
         }).then((res:any) => {
           this.tags=res.data;

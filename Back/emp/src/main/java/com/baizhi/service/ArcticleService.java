@@ -20,5 +20,7 @@ public interface ArcticleService {
 
     List<Arcticle> findByTags(String tag);
 
+    List<String> findTags();
+
     PageResult findPage(PageRequest pageRequest);
 }

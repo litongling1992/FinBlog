@@ -2,7 +2,7 @@
     <div>
       <div class="l-banan">
         <img 
-        :src="essayImg" class="image"> 
+        :src="imgpath" class="image"> 
       </div>
       <div class="e-content"  data-aos="fade-up" v-highlight>
         <div>
@@ -101,16 +101,15 @@ export default class EssayDetail extends Vue{
         }
 
     getEssay(){
-          (this as any).$axios.get("http://localhost:8989/api/blog/findOne",)
+          (this as any).$axios.get("http://localhost:9002/api/blog/findOne",)
                 .then((res:any) => {
                         this.$message({
                             message: res.data.msg,
                             type: "success"
         });
-
-            this.essayContent = res.data.essayContent
+            this.essayContent = res.data.content
             this.essayDetail = res.data
-            this.essayImg = res.data.essayImg
+            this.essayImg = res.data.imgpath
             this.getListEssay(res.data.labelId,res.data.id);
      })
      .catch((err:any) => {

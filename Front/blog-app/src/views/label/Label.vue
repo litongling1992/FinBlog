@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-03-01 12:11:55
+ * @LastEditTime: 2021-03-01 12:55:42
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \blog-app\src\views\label\Label.vue
+-->
 <template>
   <div>
     <div class="l-banan">
@@ -61,9 +69,10 @@ export default class Label extends Vue{
   
    created() {
         this.loadData();
-        this.$router.afterEach((to,from,next)=>{
-　　　　 window,scrollTo(0,0)
-　　})
+      this.$router.afterEach( (to,from) => {
+          console.log(to);
+          console.log(from);
+　　　　 window.scrollTo(0,0)})
   }
     
      loadData() {

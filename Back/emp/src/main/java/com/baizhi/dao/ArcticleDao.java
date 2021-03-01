@@ -1,7 +1,6 @@
 package com.baizhi.dao;
 
 import com.baizhi.entity.Arcticle;
-import com.baizhi.entity.Emp;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -22,4 +21,7 @@ public interface ArcticleDao {
     List<Arcticle> findByTags(String tag);
 
     List<Arcticle> findPage();
+
+    List<String> findTags();
+
 }

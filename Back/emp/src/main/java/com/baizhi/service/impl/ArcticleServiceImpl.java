@@ -53,6 +53,11 @@ public class ArcticleServiceImpl implements ArcticleService {
     }
 
     @Override
+    public List<String> findTags() {
+        return arcticleDao.findTags();
+    }
+
+    @Override
     public void save(Arcticle emp) {
         emp.setCreate_date(new Date());
         emp.setUpdate_date(new Date());

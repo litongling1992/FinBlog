@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-17 13:05:09
- * @LastEditTime: 2021-02-17 19:54:36
+ * @LastEditTime: 2021-03-01 16:12:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-empty-demo\src\components\card\Card.vue
@@ -12,18 +12,18 @@
           <el-col v-for="(item, index) in essayList" :key="index">
             <el-card :body-style="{ padding: '0px'}" class="card-blog" shadow="hover">
                 <img
-                  v-lazy="item.essayImg" :key="item.essayImg"
+                  v-lazy="item.imgpath" :key="item.imgpath"
                   class="image"  @click="getEssayDetail(item.id)"  >
                     <div class="card-label" style="padding: 10px;">
-                        <p class="m-card-tag" @click="goLabels(item.labelId,item.labelName)">{{item.labelName}}</p>
+                        <p class="m-card-tag" @click="goLabels(item.tags)">{{item.tags}}</p>
                     </div>
                     <div class="card-massges" @click="getEssayDetail(item.id)">
-                    <h3 class="card-m" style="height:30px">{{item.essayTitle}}</h3>
-                    <p class="card-m" style="height:60px">{{item.essayAbout}}</p>
+                    <h3 class="card-m" style="height:30px">{{item.title}}</h3>
+                    <p class="card-m" style="height:60px">{{item.about}}</p>
                     </div>
                     <hr class="l-hr" style="height:0.5px;border:none;border-top:0.5px solid rgb(218, 216, 216) ;width:100%;" />
                     <!-- <div class="bottom clearfix"> -->
-                        <p class="l-time">{{before_time(item.createTime)}}</p>
+                        <p class="l-time">{{before_time(item.create_date)}}</p>
                     <!-- </div> -->            
             </el-card>
         </el-col>
@@ -43,7 +43,7 @@ import Base64 from "@/utils/Base64"
 @Component
 export default class Card extends Vue{
 
-    @Prop(Object) essayList:Object = {};
+    @Prop(Object) essayList:any = [];
 
     before_time:string = "";
 
@@ -54,7 +54,7 @@ export default class Card extends Vue{
 
      goLabels(blabelId:string,labelName:string){
          let labelId= Base64.encode(blabelId);
-        this.$router.push(`/labels/${labelId}/${labelName}`)
+        this.$router.push(`/labels/${labelName}`)
       }
 
 }

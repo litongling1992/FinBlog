@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-01 12:11:55
- * @LastEditTime: 2021-03-01 16:13:30
- * @LastEditors: your name
+ * @LastEditTime: 2021-03-02 13:52:29
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog-app\src\components\footer\Footer.vue
 -->
@@ -12,7 +12,7 @@
         <div class="m-footer-p">
           <span class="m-footer-i">LiTonglingBlog © 2021</span>
           <span class="m-footer-i">&nbsp; • &nbsp;</span>
-          <span> <a href="http://beian.miit.gov.cn/" class="m-footer-a" target="_blank" rel="noopener">京ICP备</a></span>
+          <!-- <span> <a href="http://beian.miit.gov.cn/" class="m-footer-a" target="_blank" rel="noopener">京ICP备</a></span> -->
         </div>
       </div>
   </div>

@@ -94,7 +94,7 @@ export default class EssayDetail extends Vue{
         allmessages:any = [];
 
      @Watch("id", { deep: true })
-        watchSpaceValues(newValue: string,oldVal:string) {
+    watchSpaceValues(newValue: string,oldVal:string) {
                  if (!newValue) return;
                 this.id=Base64.decode(newValue),
                 this.getEssay()

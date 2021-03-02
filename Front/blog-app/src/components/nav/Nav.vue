@@ -62,14 +62,14 @@ export default class Nav extends Vue{
      imgurl: string = '../../assets/img/boy.png';
 
     created () {
-        document.addEventListener('click',e=>{
-        const t = (this.$refs.outlineShow as Element )
-        if(!(t.contains(e.target))){
-            this.divContent =false;
-            this.outlineShow = true;
-            this.outlineNo = false          
-          }   
-     })
+    //     document.addEventListener('click',e=>{
+    //     const t = (this.$refs.outlineShow as Element )
+    //     if(!(t.contains(e.target))){
+    //         this.divContent =false;
+    //         this.outlineShow = true;
+    //         this.outlineNo = false          
+    //       }   
+    //  })
    }
 
     changeStyle(val:string) {

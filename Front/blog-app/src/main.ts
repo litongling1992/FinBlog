@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-02-24 17:17:44
+ * @LastEditTime: 2021-03-02 12:38:28
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \blog-app\src\main.ts
+ */
 import Vue from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
@@ -13,7 +21,7 @@ import VueLazyload from 'vue-lazyload'
 Vue.prototype.$axios = axios  
 Vue.config.productionTip = false
 Vue.use(Highlight)
-Vue.use(less)
+//Vue.use(less)
 Vue.use(ElementUI)
 /* eslint-disable no-new */
 Vue.use(VueLazyload, {

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-25 13:03:14
- * @LastEditTime: 2020-09-08 10:12:09
+ * @LastEditTime: 2021-03-02 12:31:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog-front\vue.config.js
@@ -26,5 +26,7 @@ module.exports = {
       }
     },
     before: app => {}
-  }
+  },
+
+
 };

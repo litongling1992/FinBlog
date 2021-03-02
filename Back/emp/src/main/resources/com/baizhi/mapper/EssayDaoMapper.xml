@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.EssayDao">
+    <cache type="com.baizhi.cache.RedisCache"/>
+
+    <!--findAll-->
+    <select id="findAll" resultType="Essay">
+        select id,arcticleclass,tags,title,imgpath,content,create_date,update_date from t_arcticle
+    </select>
+
+    <!--save-->
+    <insert id="save" parameterType="Essay" useGeneratedKeys="true" keyProperty="id">
+        insert into t_arcticle values
+        (#{id},#{arcticleclass},#{tags},#{title},#{about},#{imgpath},#{content},#{create_date},#{update_date})
+    </insert>
+
+    <!--delete-->
+    <delete id="delete" parameterType="String">
+        delete from t_arcticle where id =#{id}
+    </delete>
+
+    <!--findOne-->
+    <select id="findOne" parameterType="String" resultType="Essay">
+        select id,essayTitle,essayAbout,essayContent,essayImg,labelId,labelName,createTime from t_essay where id =
+        #{id}
+    </select>
+
+    <!--findByTags-->
+    <select id="findByTags" parameterType="String" resultType="Essay">
+        select id,essayTitle,essayAbout,essayContent,essayImg,labelId,labelName,createTime from t_essay where labelId =
+        #{tag}
+    </select>
+
+    <!--findAllTags-->
+    <select id="findTags"  resultType="String">
+        SELECT t_essay.labelName FROM t_essay GROUP BY t_essay.labelName
+    </select>
+
+    <!--updateOne-->
+    <update id="updateOne" parameterType="Essay">
+        update t_essay set essayTitle = #{essayTitle}, essayAbout =#{essayAbout},essayContent =
+        #{essayContent},essayImg =
+         #{essayImg},
+        labelId = #{labelId},labelName = #{labelName},createTime = #{createTime} where id = #{id}
+    </update>
+
+    <select id="findPage" resultType="Essay">
+          select id,essayTitle,essayAbout,essayContent,essayImg,labelId,labelName,createTime from
+          t_essay
+    </select>
+
+</mapper>

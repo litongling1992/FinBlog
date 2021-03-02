@@ -66,13 +66,14 @@ import Card from '@/components/card'
        * 加载essayList
        */
       getListEssay(currentPage){
-            this.$post('/api/blog/findEssay',{
-              pageNumber:currentPage,
-              labelId:this.$Base64.decode(this.$route.params.labelId), 
+         this.$axios.post(`http://127.0.0.1:9002/api/blog/findEssay`,{
+             pageNum:this.currentPage,
+             pageSize: 9,
+              labelName: this.labelName, 
             })
             .then((response) =>{
-              this.essayList=response.data.rows;
-              this.essayCount=response.data.total;
+              this.essayList=response.data.result;
+              this.essayCount=response.data.totalSize;
             })
       },
     },

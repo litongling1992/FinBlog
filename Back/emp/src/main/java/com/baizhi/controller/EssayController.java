@@ -1,8 +1,8 @@
 /**
  * Copyright (C), 2015-2021, XXX有限公司
- * FileName: ArcticleController
+ * FileName: EssayController
  * Author:   Administrator
- * Date:     2021/2/24 14:54
+ * Date:     2021/3/2 18:32
  * Description:
  * History:
  * <author>          <time>          <version>          <desc>
@@ -11,13 +11,12 @@
 package com.baizhi.controller;
 
 import com.baizhi.entity.Arcticle;
-import com.baizhi.entity.Emp;
+import com.baizhi.entity.Essay;
 import com.baizhi.service.ArcticleService;
-import com.baizhi.service.EmpService;
+import com.baizhi.service.EssayService;
 import com.baizhi.vo.PageRequest;
 import com.baizhi.vo.PageResult;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,17 +33,17 @@ import java.util.*;
  * 〈〉
  *
  * @author Administrator
- * @create 2021/2/24
+ * @create 2021/3/2
  * @since 1.0.0
  */
-@Slf4j
-@CrossOrigin
 @RestController
-@RequestMapping("arcticle")
-public class ArcticleController {
+@CrossOrigin
+@RequestMapping("blog")
+@Slf4j
+public class EssayController {
 
     @Autowired
-    private ArcticleService empService;
+    private EssayService empService;
 
     @Value("${upload.dir}")
     private String realPath;
@@ -53,7 +52,7 @@ public class ArcticleController {
 
     //修改文章信息
     @PostMapping("update")
-    public Map<String, Object> update(Arcticle emp, MultipartFile photo) throws IOException {
+    public Map<String, Object> update(Essay emp, MultipartFile photo) throws IOException {
         log.info("博客文章信息: [{}]", emp.toString());
 
         Map<String, Object> map = new HashMap<>();
@@ -64,7 +63,7 @@ public class ArcticleController {
                 String newFileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(photo.getOriginalFilename());
                 photo.transferTo(new File(realPath, newFileName));
                 //设置头像地址
-                emp.setImgpath(newFileName);
+                emp.setEssayImg(newFileName);
             }
             //更新文章信息
             Date dNow = new Date( );
@@ -85,7 +84,7 @@ public class ArcticleController {
 
     //根据id查询文章信息实现
     @GetMapping("findOne")
-    public Arcticle findOne(String id){
+    public Essay findOne(String id){
         log.info("博客文章信息的id: [{}]",id);
         return empService.findOne(id);
     }
@@ -96,7 +95,7 @@ public class ArcticleController {
         log.info("博客文章信息的id: [{}]",id);
         Map<String, Object> map = new HashMap<>();
         try{
-            Arcticle arcticle = empService.findOne(id);
+            Essay arcticle = empService.findOne(id);
             if(arcticle != null){
                 map.put("state",true);
                 map.put("msg","查询文章信息成功!");
@@ -121,8 +120,8 @@ public class ArcticleController {
         Map<String, Object> map = new HashMap<>();
         try {
             //删除员工头像
-            Arcticle emp = empService.findOne(id);
-            File file = new File(realPath, emp.getImgpath());
+            Essay emp = empService.findOne(id);
+            File file = new File(realPath, emp.getEssayImg());
             if(file.exists())file.delete();//删除头像
             //删除员工信息
             empService.delete(id);
@@ -139,7 +138,7 @@ public class ArcticleController {
 
     //保存文章信息
     @PostMapping("save")
-    public Map<String, Object> save(Arcticle emp, MultipartFile photo) throws IOException {
+    public Map<String, Object> save(Essay emp, MultipartFile photo) throws IOException {
         log.info("博客文章信息: [{}]", emp.toString());
         log.info("头像信息: [{}]", photo.getOriginalFilename());
         Map<String, Object> map = new HashMap<>();
@@ -148,7 +147,7 @@ public class ArcticleController {
             String newFileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(photo.getOriginalFilename());
             photo.transferTo(new File(realPath, newFileName));
             //设置头像地址
-            emp.setImgpath(newFileName);
+            emp.setEssayImg(newFileName);
             //保存员工信息
             empService.save(emp);
             map.put("state", true);
@@ -163,13 +162,13 @@ public class ArcticleController {
 
     //获取所有文章列表的方法
     @GetMapping("findAll")
-    public List<Arcticle> findAll() {
+    public List<Essay> findAll() {
         return empService.findAll();
     }
 
     //获取所有文章列表的方法
     @GetMapping("findByTags")
-    public List<Arcticle> findByTags(String tag) {
+    public List<Essay> findByTags(String tag) {
         return empService.findByTags(tag);
     }
 
@@ -180,7 +179,7 @@ public class ArcticleController {
     }
 
     @CrossOrigin
-    @PostMapping("findPage")
+    @PostMapping("findEssay")
     public Map<String,Object> findPage(@RequestBody PageRequest pageQuery) {
         Map<String,Object> map = new HashMap<>();
         try {

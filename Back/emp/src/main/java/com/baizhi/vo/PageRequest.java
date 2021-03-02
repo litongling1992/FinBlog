@@ -29,6 +29,26 @@ public class PageRequest {
      */
     private int pageSize;
 
+    private int labelType;
+
+    public int getLabelType() {
+        return labelType;
+    }
+
+    public void setLabelType(int labelType) {
+        this.labelType = labelType;
+    }
+
+    public String labelName;
+
+    public String getLabelName() {
+        return labelName;
+    }
+
+    public void setLabelName(String labelName) {
+        this.labelName = labelName;
+    }
+
     public int getPageNum() {
         return pageNum;
     }

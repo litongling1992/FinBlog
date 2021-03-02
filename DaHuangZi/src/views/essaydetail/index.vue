@@ -159,9 +159,7 @@ import Card from '@/components/card'
     },
 
     getEssay(){
-          this.$post('/api/blog/findEssayById',{
-              id:this.id
-          })
+          this.$axios.get(`http://127.0.0.1:9002/api/blog/findOne`,this.id)
           .then(res =>{
             this.essayContent = res.data.essayContent
             this.essayDetail = res.data

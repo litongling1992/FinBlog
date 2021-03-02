@@ -2,9 +2,9 @@
   <div>
       <div class="m-footer">
         <div class="m-footer-p">
-          <span class="m-footer-i">Dahuangzi © 2020</span>
+          <span class="m-footer-i">LiTongLing © 2020</span>
           <span class="m-footer-i">&nbsp; • &nbsp;</span>
-          <span> <a href="http://beian.miit.gov.cn/" class="m-footer-a" target="_blank" rel="noopener">京ICP备2020047706号</a></span>
+         <!-- <span> <a href="http://beian.miit.gov.cn/" class="m-footer-a" target="_blank" rel="noopener">京ICP备2020047706号</a></span> -->
         </div>
       </div>
   </div>

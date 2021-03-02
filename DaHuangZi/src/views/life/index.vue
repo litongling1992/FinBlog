@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-01-25 16:17:16
+ * @LastEditTime: 2021-03-02 19:55:57
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue_blog\src\views\life\index.vue
+-->
 <template>
     <div>
       <div class="l-banan">
@@ -34,6 +42,7 @@ import Card from '@/components/card'
     },
     data() {
       return {
+				currentPage:1,
         essayList:[],
         essayCount:0, 
       };
@@ -55,13 +64,15 @@ import Card from '@/components/card'
        * 加载essayList
        */
       getListEssay(currentPage){
-            this.$post('/api/blog/findEssay',{
-              pageNumber:currentPage,
-              labelId:1
-            })
+        	const pageQuery ={
+				       pageNum:this.currentPage,
+				       pageSize: 9,
+					    labelType:2
+				    };
+        this.$axios.post(`http://127.0.0.1:9002/api/blog/findEssay`,pageQuery)
             .then((response) =>{
-              this.essayList=response.data.rows;
-              this.essayCount=response.data.total;
+              this.essayList=response.data.result;
+              this.essayCount=response.data.totalSize;
             })
       },
     },

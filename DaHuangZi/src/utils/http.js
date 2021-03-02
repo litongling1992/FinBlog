@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 axios.defaults.timeout = 5000;   //设置请求时间
-axios.defaults.baseURL ='http://localhost:8088';   //设置接口公共部分
+axios.defaults.baseURL ='http://127.0.0.1:9002';   //设置接口公共部分
 
 //http request 拦截器
 

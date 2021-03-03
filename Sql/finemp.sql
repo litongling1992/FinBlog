@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80016
 File Encoding         : 65001
 
-Date: 2021-03-01 17:41:11
+Date: 2021-03-03 19:51:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,6 +67,37 @@ INSERT INTO `t_emp` VALUES ('9', '梁燕', '笔记本', '惠普', '无线鼠标'
 INSERT INTO `t_emp` VALUES ('10', '吕学学', '笔记本', '戴尔', '小米无线鼠标', '宏碁电脑');
 INSERT INTO `t_emp` VALUES ('11', '周锋', '笔记本', '惠普', '鼠标', '无');
 INSERT INTO `t_emp` VALUES ('12', '吴宇宁', '台式', '戴尔', '有线鼠标', '都放到');
+
+-- ----------------------------
+-- Table structure for `t_essay`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_essay`;
+CREATE TABLE `t_essay` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `essayTitle` varchar(100) DEFAULT NULL,
+  `essayAbout` text,
+  `essayContent` mediumtext,
+  `essayImg` varchar(100) DEFAULT NULL,
+  `labelId` varchar(10) DEFAULT NULL,
+  `labelName` varchar(60) DEFAULT NULL,
+  `createTime` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_essay
+-- ----------------------------
+INSERT INTO `t_essay` VALUES ('1', '第一篇', '第一篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Code', '代码', '2020-07-17');
+INSERT INTO `t_essay` VALUES ('2', '第二篇', '第二篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Life', '生活', '2021-03-02');
+INSERT INTO `t_essay` VALUES ('3', '第三篇', '第三篇无简介', '我偶奇偶奇偶奇偶奇偶经<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Author', '作者', '2021-03-02');
+INSERT INTO `t_essay` VALUES ('4', '第四篇', '第四篇', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Code', '代码', '2021-03-02');
+INSERT INTO `t_essay` VALUES ('5', '第五篇', '第五篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Java', '课余', '2021-03-03');
+INSERT INTO `t_essay` VALUES ('6', '第六篇', '第六篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'C#', '测试', '2021-03-03');
+INSERT INTO `t_essay` VALUES ('7', '第七篇', '第七篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Python', '编程语言', '2021-03-03');
+INSERT INTO `t_essay` VALUES ('8', '第八篇', '第八篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Linux', '操作系统', '2021-03-03');
+INSERT INTO `t_essay` VALUES ('9', '第九篇', '第九篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Ruby', '自动化', '2021-03-03');
+INSERT INTO `t_essay` VALUES ('10', '第十篇', '第十篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Code', '代码', '2021-03-03');
+INSERT INTO `t_essay` VALUES ('11', '第十一篇', '第十一篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Code', '代码', '2021-03-03');
 
 -- ----------------------------
 -- Table structure for `t_user`

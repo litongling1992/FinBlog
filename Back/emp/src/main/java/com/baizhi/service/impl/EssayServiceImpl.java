@@ -25,7 +25,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.awt.print.Book;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -109,7 +111,10 @@ public class EssayServiceImpl implements EssayService {
                 break;
         }
         if (pageRequest.getLabelName() != null){
-            sysMenus = empDao.findByTags(pageRequest.getLabelName());
+            List<Essay>  result = sysMenus.stream()
+                    .filter((Essay b) -> pageRequest.getLabelName().equals(b.getLabelName()))
+                    .collect(Collectors.toList());
+            return new PageInfo<Essay>(result);
         }
 
         return new PageInfo<Essay>(sysMenus);

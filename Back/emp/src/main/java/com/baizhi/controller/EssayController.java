@@ -16,6 +16,7 @@ import com.baizhi.service.ArcticleService;
 import com.baizhi.service.EssayService;
 import com.baizhi.vo.PageRequest;
 import com.baizhi.vo.PageResult;
+import com.baizhi.vo.TagsVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +91,7 @@ public class EssayController {
     }
 
     //根据id查询文章信息实现
-    @PostMapping("findOneById")
+    @GetMapping("findOneById")
     public Map<String, Object> findOneById(String id){
         log.info("博客文章信息的id: [{}]",id);
         Map<String, Object> map = new HashMap<>();
@@ -148,7 +149,7 @@ public class EssayController {
             photo.transferTo(new File(realPath, newFileName));
             //设置头像地址
             emp.setEssayImg(newFileName);
-            //保存员工信息
+            //保存信息
             empService.save(emp);
             map.put("state", true);
             map.put("msg", "博客文章保存成功!");
@@ -162,30 +163,70 @@ public class EssayController {
 
     //获取所有文章列表的方法
     @GetMapping("findAll")
-    public List<Essay> findAll() {
-        return empService.findAll();
+    public Map<String,Object> findAll() {
+        Map<String,Object> map = new HashMap<>();
+        try {
+            map.put("state",true);
+            map.put("msg","获取所有标签成功");
+            map.put("result",empService.findAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("state",false);
+            map.put("msg","查询失败");
+        }
+        return map;
     }
 
     //获取所有文章列表的方法
     @GetMapping("findByTags")
-    public List<Essay> findByTags(String tag) {
-        return empService.findByTags(tag);
+    public Map<String,Object> findByTags(String tag) {
+        Map<String,Object> map = new HashMap<>();
+        try {
+            map.put("state",true);
+            map.put("msg","获取所有标签成功");
+            map.put("result",empService.findByTags(tag));
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("state",false);
+            map.put("msg","查询失败");
+        }
+        return map;
     }
 
     //获取所有文章标签的方法
     @GetMapping("findTags")
-    public List<String> findTags() {
-        return empService.findTags();
+    public Map<String,Object> findTags() {
+        Map<String,Object> map = new HashMap<>();
+        try {
+            List<TagsVo> tagsVos = new ArrayList<TagsVo>();
+          List<String> tags = empService.findTags();
+            for(int i=0;i<tags.size();i++){
+                TagsVo tag = new TagsVo();
+                tag.setIndex(i+1);
+                tag.setLabelName(tags.get(i));
+                tagsVos.add(tag);
+            }
+            map.put("state",true);
+            map.put("msg","获取所有标签成功");
+            map.put("result",tagsVos);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("state",false);
+            map.put("msg","查询失败");
+        }
+        return map;
     }
 
     @CrossOrigin
     @PostMapping("findEssay")
-    public Map<String,Object> findPage(@RequestBody PageRequest pageQuery) {
+    public Map<String,Object> findEssay(@RequestBody PageRequest pageQuery) {
         Map<String,Object> map = new HashMap<>();
         try {
             PageRequest p = new PageRequest();
             p.setPageSize(pageQuery.getPageSize());
             p.setPageNum(pageQuery.getPageNum());
+            p.setLabelType(pageQuery.getLabelType());
+            p.setLabelName(pageQuery.getLabelName());
             PageResult result =empService.findPage(p);
 
             map.put("state",true);

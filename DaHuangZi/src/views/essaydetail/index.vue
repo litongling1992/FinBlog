@@ -39,7 +39,7 @@
                 <div v-else>
                    <el-timeline-item placement="top">
                     <el-card class="el-card-m" style="height:120px">
-                      <h4>大黄子：</h4>
+                      <h4>欢迎留言：</h4>
                       <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 说点什么吧😁</p>
                     </el-card>
                   </el-timeline-item>
@@ -155,28 +155,25 @@ import Card from '@/components/card'
         '看了文章之后有什么要对大黄子说的吗。😊'
         ];
       let cons=contents[Math.floor((Math.random()*contents.length))];
-      this.contente="大黄子说：“"+cons+"”";
+      this.contente="哈哈哈：“"+cons+"”";
     },
 
     getEssay(){
-          this.$axios.get(`http://127.0.0.1:9002/api/blog/findOne`,this.id)
+          this.$axios.get(`http://127.0.0.1:9002/api/blog/findOneById?id=${this.id}`)
           .then(res =>{
-            this.essayContent = res.data.essayContent
-            this.essayDetail = res.data
-            this.essayImg = res.data.essayImg
-            this.getListEssay(res.data.labelId,res.data.id);
+            this.essayContent = res.data.result.essayContent
+            this.essayDetail = res.data.result
+            this.essayImg = res.data.result.essayImg
+            this.getListEssay(res.data.result.labelId);
           })
     },
       /**
        * 加载essayList
        */
-      getListEssay(labelId,id){
-            this.$post('/api/blog/findEssayByRe',{
-              labelId:labelId,
-              id:id
-            })
+      getListEssay(labelId,){
+             this.$axios.get(`http://127.0.0.1:9002/api/blog/findByTags?tag=${labelId}`)
             .then((response) =>{
-              this.essayList=response.data.rows;
+              this.essayList = response.data.result;
             })
       }
   },

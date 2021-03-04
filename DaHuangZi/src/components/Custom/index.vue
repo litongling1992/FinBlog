@@ -1,24 +1,22 @@
 <template>
-  <div class="card-t">
-      <el-row>
-        <el-col v-for="(item) in essayList" :key="item.id" >
-            <el-card :body-style="{ padding: '0px'}" class="card-blog" shadow="hover" :key="item.id">
-                <img v-lazy="item.essayImg" :src="item.essayImg" :key="item.essayImg"  class="image"  @click="getEssayDetail(item.id)"  >
+    <div class="card-t">
+        <el-col  :essay="essay" :key="essay.id">
+            <el-card :body-style="{ padding: '0px'}" class="card-blog" shadow="hover" :key="essay.id">
+                <img v-lazy="essay.essayImg" :src="essay.essayImg" :key="essay.essayImg"  class="image"  @click="getEssayDetail(essay.id)"  >
                     <div class="card-label" style="padding: 10px;">
-                        <p class="m-card-tag" @click="goLabels(item.labelId,item.labelName)">{{item.labelName}}</p>
+                        <p class="m-card-tag" @click="goLabels(essay.labelId,essay.labelName)">{{itessayem.labelName}}</p>
                     </div>
-                    <div class="card-massges" @click="getEssayDetail(item.id)">
-                    <h3 class="card-m" style="height:30px">{{item.essayTitle}}</h3>
-                    <p class="card-m" style="height:60px">{{item.essayAbout}}</p>
+                    <div class="card-massges" @click="getEssayDetail(essay.id)">
+                    <h3 class="card-m" style="height:30px">{{essay.essayTitle}}</h3>
+                    <p class="card-m" style="height:60px">{{essay.essayAbout}}</p>
                     </div>
                     <hr class="l-hr" style="height:0.5px;border:none;border-top:0.5px solid rgb(218, 216, 216) ;width:100%;" />
                     <!-- <div class="bottom clearfix"> -->
-                        <p class="l-time">{{before_time(item.createTime)}}</p>
+                        <p class="l-time">{{before_time(essay.createTime)}}</p>
                     <!-- </div> -->
                 
             </el-card>
         </el-col>
-    </el-row>
     <div class="el-top">
      <el-backtop :bottom="250" :right="100" :visibility-height="400">
         <i class="el-icon-thumb"></i>
@@ -36,17 +34,25 @@ import { before_time } from '@/utils/common'
     };
   },
   props:{
-      essayList:{
-        type:Array,
-        default:()=>{
-            return []
-        }
-      },
-      CustomKey:''
-      
+      essay:{},
+      CustomKey:'',
+      parentData:0
+  },
+    watch:{
+
+        parentData(newVal,oldVal){
+            this.$forceUpdate();
+            console.log("子组件监听父组件数据标签："+newVal+";");
+        },
+
+    essay(newVal,oldVal){
+     this.$forceUpdate();
+      console.log("子组件监听标签："+newVal.labelName+";");
+    }
+
   },
   created() {
-
+        console.log("自定义卡片的Id"+essay.essayTitle);
   },
   mounted() {
 

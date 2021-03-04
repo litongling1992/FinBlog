@@ -28,7 +28,7 @@
               <el-row>
                 <el-col :span="6" v-for="(item, index) in essayList" :key="index">
                   <el-card :body-style="{ padding: '0px'}" class="card-blog">
-                    <img :src="item.essayImg" class="nav-show-image"  @click="getEssayDetail(item.id)"> 
+                    <img :key="item.essayImg" :src="item.essayImg" class="nav-show-image"  @click="getEssayDetail(item.id)"> 
                     <div class="card-massges" @click="getEssayDetail(item.id)">
                       <p class="card-m" >{{item.essayTitle}}</p>
                     </div> 
@@ -39,7 +39,7 @@
            <div>
              <h3 class="nav-tags">Tags</h3>
              <div class="tags-div">
-             <div class="tags" v-for="(item, index) in tags" :key="index" @click="goLabels(item.id,item.labelName)">{{item.labelName}}</div>
+             <div class="tags" v-for="(item, index) in tags" :key="index" @click="goLabels(item.labelName)">{{item.labelName}}</div>
              </div>
            </div>
           </div>
@@ -61,7 +61,8 @@
         imgurl:'../../assets/img/boy.png'
     };
   },
-  created(){ document.addEventListener('click',(e)=>{
+  created(){
+     document.addEventListener('click',(e)=>{
           if(!this.$refs.outlineShow.contains(e.target)){
             this.divContent =false;
             this.outlineShow = true;
@@ -94,28 +95,31 @@
         this.$router.push(`/essaydetail/${id}`)
       },
       getListEssay(){
-        this.$post('/api/blog/findEssay',{ 
-        })
-        .then((response) =>{
-          this.essayList=response.data.result; 
-        })
+         	const pageQuery ={
+				       pageNum:1,
+               pageSize: 4,
+				    };
+          this.$axios.post(`http://127.0.0.1:9002/api/blog/findEssay`,pageQuery)
+            .then((response) =>{
+              this.essayList=response.data.result;
+            })
       },
       getAllLabel(){
-          this.$axios.post(`http://127.0.0.1:9002/api/blog/findTags`)
+          this.$axios.get(`http://127.0.0.1:9002/api/blog/findTags`)
          .then((res) => {
-          this.tags=res.data;
+          
+          this.tags = res.data.result;
         })
       },
-       goLabels(blabelId,labelName){
-        let labelId= this.$Base64.encode(blabelId);
-        if(labelName=="Author"){
-            
+       goLabels(labelName){
+        if(labelName=="作者"){          
             this.$router.push('/author');
-        }else if(labelName=="life"){
+        }else if(labelName=="生活"){
             this.$router.push('/Life');
         }
         else{
-            this.$router.push(`/labels/${labelId}/${labelName}`)
+            //this.$router.push(`/labels/${labelName}`)
+             this.$router.push({name:'tag',params:{ labelName : labelName}});
         }
       
       }

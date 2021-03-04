@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-25 16:17:16
- * @LastEditTime: 2021-03-02 19:55:57
+ * @LastEditTime: 2021-03-04 13:55:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue_blog\src\views\life\index.vue
@@ -58,18 +58,18 @@ import Card from '@/components/card'
       },
       current_change(currentPage){  //改变当前页
              this.currentPage = currentPage;
-             this.getListEssay(currentPage);
+             this.getListEssay();
          },
       /**
        * 加载essayList
        */
-      getListEssay(currentPage){
+      getListEssay(){
         	const pageQuery ={
 				       pageNum:this.currentPage,
 				       pageSize: 9,
 					    labelType:2
 				    };
-        this.$axios.post(`http://127.0.0.1:9002/api/blog/findEssay`,pageQuery)
+          this.$axios.post(`http://127.0.0.1:9002/api/blog/findEssay`,pageQuery)
             .then((response) =>{
               this.essayList=response.data.result;
               this.essayCount=response.data.totalSize;

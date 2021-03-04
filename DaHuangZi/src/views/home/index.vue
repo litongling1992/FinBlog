@@ -2,7 +2,7 @@
     <div>
       <div class="l-banan">
         <div class="img-content " data-aos="fade-down">
-          <h1 class="m-hero-title">DaHuangzi</h1>
+          <h1 class="m-hero-title">WelCome</h1>
           <p class="m-heading__description">
             Better late than never
           </p>
@@ -22,7 +22,7 @@
           small
           layout="prev, pager, next"
            @current-change="current_change"
-            :page-size="9"
+          :page-size="9"
           :total='essayCount'> 
         </el-pagination>
       </div>

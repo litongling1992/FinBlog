@@ -10,9 +10,7 @@
  */
 package com.baizhi.controller;
 
-import com.baizhi.entity.Arcticle;
 import com.baizhi.entity.Essay;
-import com.baizhi.service.ArcticleService;
 import com.baizhi.service.EssayService;
 import com.baizhi.vo.PageRequest;
 import com.baizhi.vo.PageResult;

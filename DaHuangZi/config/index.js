@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-01-25 16:17:16
+ * @LastEditTime: 2021-03-03 12:26:33
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vue_blog\config\index.js
+ */
 'use strict'
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
@@ -10,8 +18,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
-
+   
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
@@ -20,6 +27,20 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
+      // Paths
+      assetsSubDirectory: 'static',
+      assetsPublicPath: '/',
+      proxy: {
+        // 配置跨域
+        '/api': {
+          target: 'http://127.0.0.1:9002/api/',
+          ws: true,
+          changOrigin: true,
+          pathRewrite: {
+            '^/api': ''
+          }
+        }
+      },
     
     /**
      * Source Maps

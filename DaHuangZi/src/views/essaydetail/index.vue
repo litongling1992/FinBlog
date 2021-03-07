@@ -10,6 +10,7 @@
           <br>
         </div>
           <article v-html="essayContent"></article>
+		  
       </div>
       <div class="e-banan"> 
       
@@ -164,7 +165,7 @@ import Card from '@/components/card'
             this.essayContent = res.data.result.essayContent
             this.essayDetail = res.data.result
             this.essayImg = res.data.result.essayImg
-            this.getListEssay(res.data.result.labelId);
+            //this.getListEssay(res.data.result.labelId);
           })
     },
       /**

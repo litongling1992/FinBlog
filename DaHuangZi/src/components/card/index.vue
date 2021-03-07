@@ -13,7 +13,7 @@
                     </div>
                     <hr class="l-hr" style="height:0.5px;border:none;border-top:0.5px solid rgb(218, 216, 216) ;width:100%;" />
                     <!-- <div class="bottom clearfix"> -->
-                        <p class="l-time">{{before_time(item.createTime)}}</p>
+                        <p class="l-time">{{essay.createTime}}</p>
                     <!-- </div> -->
                 
             </el-card>

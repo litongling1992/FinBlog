@@ -1,6 +1,5 @@
 package com.baizhi.dao;
 
-import com.baizhi.entity.Arcticle;
 import com.baizhi.entity.Essay;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,4 +23,6 @@ public interface EssayDao {
     List<Essay> findPage();
 
     List<String> findTags();
+
+    List<Essay> findByLabelName(String labelName);
 }

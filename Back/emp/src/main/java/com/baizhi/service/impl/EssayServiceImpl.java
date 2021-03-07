@@ -55,6 +55,11 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
+    public List<Essay> findByLabelName(String labelName) {
+        return empDao.findByLabelName(labelName);
+    }
+
+    @Override
     public void delete(String id) {
         empDao.delete(id);
     }
@@ -95,28 +100,25 @@ public class EssayServiceImpl implements EssayService {
 
         PageHelper.startPage(pageNum, pageSize);
 
-        List<Essay> sysMenus = empDao.findPage();
 
         switch (pageRequest.getLabelType()){
             case 1:
-                sysMenus = empDao.findByTags("Code");
-                break;
+                List<Essay> codeResult = empDao.findByTags("Code");
+                return new PageInfo<Essay>(codeResult);
             case 2:
-                sysMenus = empDao.findByTags("Life");
-                break;
+                List<Essay> lifeEssay = empDao.findByTags("Life");
+                return new PageInfo<Essay>(lifeEssay);
             case 3:
-                sysMenus = empDao.findByTags("Author");
-                break;
+                List<Essay> authoyEssay  = empDao.findByTags("Author");
+                return new PageInfo<Essay>(authoyEssay);
             default:
                 break;
         }
         if (pageRequest.getLabelName() != null){
-            List<Essay>  result = sysMenus.stream()
-                    .filter((Essay b) -> pageRequest.getLabelName().equals(b.getLabelName()))
-                    .collect(Collectors.toList());
+            List<Essay> result = empDao.findByLabelName(pageRequest.getLabelName());
             return new PageInfo<Essay>(result);
         }
-
+        List<Essay> sysMenus = empDao.findPage();
         return new PageInfo<Essay>(sysMenus);
     }
 }

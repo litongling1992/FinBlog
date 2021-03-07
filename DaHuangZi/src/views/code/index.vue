@@ -27,7 +27,7 @@
           small
           layout="prev, pager, next"
            @current-change="current_change"
-            :page-size="9"
+          :page-size="pageSize"
           :total='essayCount'>
         </el-pagination>
       </div>
@@ -44,7 +44,8 @@ import Card from '@/components/card';
       return {
 		currentPage:1,
         essayList:[],
-        essayCount:0, 
+        essayCount:0,
+				pageSize:9,
         url:''
       };
     },
@@ -62,11 +63,6 @@ import Card from '@/components/card';
        * 加载essayList
        */
       getListEssay(currentPage){
-			const pageQuery ={
-				       pageNum: this.currentPage,
-				       pageSize: 9,
-					     labelType:1
-				    };
             this.$axios.post(`http://127.0.0.1:9002/api/blog/findEssay`,{
 				       pageNum: this.currentPage,
 				       pageSize: 9,

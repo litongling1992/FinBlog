@@ -22,15 +22,15 @@
       <div class="l-content" data-aos="fade-up">
            <card :essayList="essayList"/>
       </div> 
-            <div class="l-content-foot"> 
-        <el-pagination 
-          small
-          layout="prev, pager, next"
-           @current-change="current_change"
-            :page-size="9"
-          :total='essayCount'>
-        </el-pagination>
-      </div>
+         <div class="l-content-foot"> 
+			<el-pagination 
+			  small
+			  layout="prev, pager, next"
+			   @current-change="current_change"
+			  :page-size="9"
+			  :total='essayCount'> >
+			</el-pagination>
+     </div>
     </div>
 </template>
 
@@ -56,16 +56,10 @@ import Card from '@/components/card'
       this.labelName = this.$route.params.labelName;
        console.log("第3次获取标签"+this.labelName);
        this.getListEssay();
-       this.key();
        console.log("第3次获取结果 " + this.essayList);
     
     },
 
-    labelName(newVal,oldVal){
-      this.labelName = this.$route.newVal.params.labelName;
-      this.getListEssay();
-      console.log("监听标签："+this.labelName+";"+ this.essayCount);
-    }
   },
 
     created() {
@@ -80,22 +74,22 @@ import Card from '@/components/card'
       current_change(currentPage){  //改变当前页
              this.currentPage = currentPage;
              this.getListEssay();
-         },
+       },
       /**
        * 加载essayList
        */
       getListEssay(){
-    const pageQuery ={
-      labelName: this.$route.params.labelName,
-			pageNum:this.currentPage,
-			pageSize: 9,
-		};
-     this.$axios.post(`http://127.0.0.1:9002/api/blog/findEssay`,pageQuery)
-            .then((response) =>{
-              this.essayList=response.data.result;
-              this.essayCount=response.data.totalSize;
-            })
-      },
+						const pageQuery ={
+							labelName: this.$route.params.labelName,
+							pageNum:this.currentPage,
+							pageSize: 9,
+						};
+						 this.$axios.post(`http://127.0.0.1:9002/api/blog/findEssay`,pageQuery)
+										.then((response) =>{
+											this.essayList=response.data.result;
+											this.essayCount=response.data.totalSize;
+										})
+			},
     },
   }
 </script>

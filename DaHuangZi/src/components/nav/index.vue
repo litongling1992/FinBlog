@@ -112,11 +112,14 @@
         })
       },
        goLabels(labelName){
-        if(labelName=="作者"){          
+        if(labelName == "作者"){          
             this.$router.push('/author');
         }else if(labelName=="生活"){
             this.$router.push('/Life');
         }
+				else if(labelName=="代码"){
+				    this.$router.push('/code');
+				}
         else{
             //this.$router.push(`/labels/${labelName}`)
              this.$router.push({name:'tag',params:{ labelName : labelName}});

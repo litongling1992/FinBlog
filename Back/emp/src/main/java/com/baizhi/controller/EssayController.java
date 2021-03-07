@@ -12,6 +12,7 @@ package com.baizhi.controller;
 
 import com.baizhi.entity.Essay;
 import com.baizhi.service.EssayService;
+import com.baizhi.utils.RequestUtils;
 import com.baizhi.vo.PageRequest;
 import com.baizhi.vo.PageResult;
 import com.baizhi.vo.TagsVo;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -51,23 +53,16 @@ public class EssayController {
 
     //修改文章信息
     @PostMapping("update")
-    public Map<String, Object> update(Essay emp, MultipartFile photo) throws IOException {
+    public Map<String, Object> update(@RequestBody Essay emp) throws IOException {
         log.info("博客文章信息: [{}]", emp.toString());
 
         Map<String, Object> map = new HashMap<>();
         try {
-            if(photo!=null&&photo.getSize()!=0){
-                log.info("头像信息: [{}]", photo.getOriginalFilename());
-                //图片保存
-                String newFileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(photo.getOriginalFilename());
-                photo.transferTo(new File(realPath, newFileName));
-                //设置头像地址
-                emp.setEssayImg(newFileName);
-            }
+
             //更新文章信息
             Date dNow = new Date( );
             SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
-
+            emp.setCreateTime(dNow);
             empService.updateOne(emp);
             map.put("state", true);
             map.put("msg", "博客文章保存成功!");
@@ -120,10 +115,20 @@ public class EssayController {
         try {
             //删除员工头像
             Essay emp = empService.findOne(id);
-            File file = new File(realPath, emp.getEssayImg());
-            if(file.exists())file.delete();//删除头像
-            //删除员工信息
-            empService.delete(id);
+            if(emp != null){
+                //删除员工信息
+                empService.delete(id);
+            }
+            //删除标题图片
+            String imgFullPath =  emp.getEssayImg();
+            String[] arr1=imgFullPath.split("/");
+            if(arr1.length == 3){
+                String relatePath = arr1[2];
+                if(relatePath != null){
+                    File file = new File(realPath,relatePath);
+                    if(file.exists())file.delete();//删除头像
+                }
+            }
             map.put("state",true);
             map.put("msg","删除员工信息成功!");
         }catch (Exception e){
@@ -137,7 +142,8 @@ public class EssayController {
 
     //保存文章信息
     @PostMapping("save")
-    public Map<String, Object> save(Essay emp, MultipartFile photo) throws IOException {
+    public Map<String, Object> save(@RequestBody Essay emp, MultipartFile photo,HttpServletRequest request) throws
+            IOException {
         log.info("博客文章信息: [{}]", emp.toString());
         log.info("头像信息: [{}]", photo.getOriginalFilename());
         Map<String, Object> map = new HashMap<>();
@@ -145,8 +151,40 @@ public class EssayController {
             //头像保存
             String newFileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(photo.getOriginalFilename());
             photo.transferTo(new File(realPath, newFileName));
+
+            String imgUrl =  RequestUtils.getBasePath(request)+newFileName;
             //设置头像地址
-            emp.setEssayImg(newFileName);
+            emp.setEssayImg(imgUrl);
+
+            //过滤字符串
+            String regEx="[\n`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。， 、？]";
+
+            Date dNow = new Date( );
+            SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+
+            emp.setCreateTime(dNow);
+            //保存信息
+            empService.save(emp);
+            map.put("state", true);
+            map.put("msg", "博客文章保存成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("state", false);
+            map.put("msg", "博客文章保存失败!");
+        }
+        return map;
+    }
+
+    //保存文章信息
+    @PostMapping("saveEssay")
+    @CrossOrigin
+    public Map<String, Object> saveEssay(@RequestBody Essay emp) throws IOException {
+        log.info("博客文章信息: [{}]", emp.toString());
+        Map<String, Object> map = new HashMap<>();
+        try {
+            Date dNow = new Date( );
+            SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+            emp.setCreateTime(dNow);
             //保存信息
             empService.save(emp);
             map.put("state", true);
@@ -161,6 +199,7 @@ public class EssayController {
 
     //获取所有文章列表的方法
     @GetMapping("findAll")
+    @CrossOrigin
     public Map<String,Object> findAll() {
         Map<String,Object> map = new HashMap<>();
         try {
@@ -177,6 +216,7 @@ public class EssayController {
 
     //获取所有文章列表的方法
     @GetMapping("findByTags")
+    @CrossOrigin
     public Map<String,Object> findByTags(String tag) {
         Map<String,Object> map = new HashMap<>();
         try {
@@ -193,6 +233,7 @@ public class EssayController {
 
     //获取所有文章标签的方法
     @GetMapping("findTags")
+    @CrossOrigin
     public Map<String,Object> findTags() {
         Map<String,Object> map = new HashMap<>();
         try {
@@ -240,4 +281,31 @@ public class EssayController {
         }
         return map;
     }
+
+    @PostMapping("/uploadFile")
+    public Map<String,Object> upload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
+
+        Map<String,Object> map = new HashMap<>();
+        try {
+            String originalFilename = file.getOriginalFilename();
+            //获取文件名后缀
+            String ex = originalFilename.substring(originalFilename.lastIndexOf(".")+1,originalFilename.length());
+            String newFileNamePrefix= UUID.randomUUID().toString();
+            String newFileName=newFileNamePrefix+"."+ex;
+            ///usr/LyuBlog/uploadL
+            file.transferTo(new File("E:\\workspace\\photos",newFileName));
+            //最后返回的是一个可以访问的全路径
+            //return Result.ok(RequestUtils.getBasePath(request)+newFileName);
+            String imgUrl =  RequestUtils.getBasePath(request)+newFileName;
+            map.put("state",true);
+            map.put("msg","分页查询成功");
+            map.put("url",imgUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("state",false);
+            map.put("msg","查询失败");
+        }
+        return map;
+    }
+
 }

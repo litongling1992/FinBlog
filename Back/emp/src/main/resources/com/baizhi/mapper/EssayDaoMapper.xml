@@ -5,18 +5,45 @@
 
     <!--findAll-->
     <select id="findAll" resultType="Essay">
-        select id,arcticleclass,tags,title,imgpath,content,create_date,update_date from t_arcticle
+        select id,essayTitle,essayAbout,essayContent,essayImg,labelId,labelName,createTime from t_essay
     </select>
 
     <!--save-->
+    <!--<insert id="save" parameterType="Essay" useGeneratedKeys="true" keyProperty="id">-->
+        <!--insert into t_essay values-->
+        <!--(#{id},#{essayTitle},#{essayAbout},#{essayContent},#{essayImg},#{labelId},#{labelName},now)-->
+    <!--</insert>-->
+    <!--save-->
     <insert id="save" parameterType="Essay" useGeneratedKeys="true" keyProperty="id">
-        insert into t_arcticle values
-        (#{id},#{arcticleclass},#{tags},#{title},#{about},#{imgpath},#{content},#{create_date},#{update_date})
+        insert into t_essay values
+        (#{id},#{essayTitle},#{essayAbout},#{essayContent},#{essayImg},#{labelId},#{labelName},#{createTime})
     </insert>
+
+    <!--<insert id="save" parameterType="Essay" useGeneratedKeys="true" keyProperty="id">-->
+       <!--insert into t_arcticle(-->
+			<!--id,-->
+			<!--essayTitle,-->
+			<!--essayAbout,-->
+			<!--essayContent,-->
+			<!--essayImg,-->
+			<!--labelId,-->
+			<!--labelName,-->
+			<!--createTime-->
+		<!--)values(-->
+			<!--#{id},-->
+			<!--#{essayTitle},-->
+			<!--#{essayAbout},-->
+			<!--#{essayContent},-->
+			<!--#{essayImg},-->
+			<!--#{labelId},-->
+			<!--#{labelName},-->
+			<!--now()-->
+		<!--)-->
+    <!--</insert>-->
 
     <!--delete-->
     <delete id="delete" parameterType="String">
-        delete from t_arcticle where id =#{id}
+        delete from t_essay where id =#{id}
     </delete>
 
     <!--findOne-->
@@ -48,5 +75,12 @@
           select id,essayTitle,essayAbout,essayContent,essayImg,labelId,labelName,createTime from
           t_essay
     </select>
+
+    <!-- 自己手写的一个根据名字模糊查询考试   exam是扫描出来的别名 -->
+    <select id="findByLabelName" parameterType="String" resultType="Essay">
+      select id,essayTitle,essayAbout,essayContent,essayImg,labelId,labelName,createTime from t_essay where
+      labelName=#{labelName}
+    </select>
+
 
 </mapper>

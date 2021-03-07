@@ -21,5 +21,7 @@ public interface EssayService {
 
     List<String> findTags();
 
+    List<Essay> findByLabelName(String labelName);
+
     PageResult findPage(PageRequest pageRequest);
 }

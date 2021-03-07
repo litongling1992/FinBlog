@@ -26,6 +26,12 @@ Vue.config.productionTip = false
 Vue.use(Highlight)
 Vue.use(less)
 Vue.use(ElementUI)
+Vue.directive('highlight', (el) => {
+    let blocks = el.querySelectorAll('pre code')
+    blocks.forEach((block) => { 
+        hljs.highlightBlock(block) 
+    }) 
+})
 /* eslint-disable no-new */
 Vue.use(VueLazyload, {
   loading: require('./assets/img/loading.gif'),//加载中图片，一定要有，不然会一直重复加载占位图

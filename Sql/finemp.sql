@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80016
 File Encoding         : 65001
 
-Date: 2021-03-03 19:51:52
+Date: 2021-03-07 16:59:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -80,24 +80,14 @@ CREATE TABLE `t_essay` (
   `essayImg` varchar(100) DEFAULT NULL,
   `labelId` varchar(10) DEFAULT NULL,
   `labelName` varchar(60) DEFAULT NULL,
-  `createTime` date DEFAULT NULL,
+  `createTime` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_essay
 -- ----------------------------
-INSERT INTO `t_essay` VALUES ('1', '第一篇', '第一篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Code', '代码', '2020-07-17');
-INSERT INTO `t_essay` VALUES ('2', '第二篇', '第二篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Life', '生活', '2021-03-02');
-INSERT INTO `t_essay` VALUES ('3', '第三篇', '第三篇无简介', '我偶奇偶奇偶奇偶奇偶经<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Author', '作者', '2021-03-02');
-INSERT INTO `t_essay` VALUES ('4', '第四篇', '第四篇', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Code', '代码', '2021-03-02');
-INSERT INTO `t_essay` VALUES ('5', '第五篇', '第五篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Java', '课余', '2021-03-03');
-INSERT INTO `t_essay` VALUES ('6', '第六篇', '第六篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'C#', '测试', '2021-03-03');
-INSERT INTO `t_essay` VALUES ('7', '第七篇', '第七篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Python', '编程语言', '2021-03-03');
-INSERT INTO `t_essay` VALUES ('8', '第八篇', '第八篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Linux', '操作系统', '2021-03-03');
-INSERT INTO `t_essay` VALUES ('9', '第九篇', '第九篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Ruby', '自动化', '2021-03-03');
-INSERT INTO `t_essay` VALUES ('10', '第十篇', '第十篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Code', '代码', '2021-03-03');
-INSERT INTO `t_essay` VALUES ('11', '第十一篇', '第十一篇无简介', '<p>东方闪电<br/></p>', 'http://localhost:9002/api/a.jpg', 'Code', '代码', '2021-03-03');
+INSERT INTO `t_essay` VALUES ('32', '关于这个博客的开发', '整体风格上，我对设计没有太多的见解，做的时候参考了好多网上,以及在别人现有的基础上改装而来，总体喜欢简约。', '<h1 id=\"自我介绍\">自我介绍</h1>\n<p>毕业于桂林电子科技大学，在一个公司从事了几年的桌面应用开发，从业几年一直在为了生活忙忙碌碌。最近几年Vue开始火起来，为了一探究竟最近也学了起来。希望保持着孜孜不倦的学习心态。在平时的工件或者学习中，遇到问题也经常是看大佬们的博客，从中有所收获。</p>\n<h1 id=\"开发个人博客的原因\">开发个人博客的原因</h1>\n<p>能学习前端知识和实践，对自己开发过程中遇到的问题做纪录，或许还能给别人提供帮助。也佩服能坚持写博客的人，同时希望自己也能更快成长（做为开发，选择了这个行业就必须去主动成长。要不带给你的就是淘汰），所以动手做了这个网站。</p>\n<h1 id=\"用到的技术\">用到的技术</h1>\n<h2 id=\"前端\">前端</h2>\n<p>正好在学Vue \nvue + vue-router + axios + element ui框架的样式 + mavon-editor</p>\n<h2 id=\"包含技术点：\">包含技术点：</h2>\n<pre><code>axios请求封装\n基本组件封装\n父子组件传值\n兄弟组件间传值\n路由传参\n传参加密\n</code></pre>\n<p> 同时博客的后端管理功能使用了vue + TypeScript</p>\n<h1 id=\"后端\">后端</h1>\n<h2 id=\"1、java\">1、Java</h2>\n<p>springboot + mysql + mybatis + redis</p>\n<p>包含技术点：（这对后端开发其实没啥技术点）</p>\n<h1 id=\"基本实现了一个简单的个人网页\">&quot; 基本实现了一个简单的个人网页 &quot;</h1>\n', 'http://localhost:9002/api/75831276-0e35-4564-b043-c6e2475166ff.jpg', 'Author', 'Author', '2021-03-07 08:41:10');
 
 -- ----------------------------
 -- Table structure for `t_user`

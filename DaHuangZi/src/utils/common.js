@@ -1,4 +1,7 @@
-export function before_time(dateTimeStamp) {
+export function before_time(end_date) {
+	  var end_str = (end_date).replace(/-/g,"/");//一般得到的时间的格式都是：yyyy-MM-dd hh24:mi:ss，所以我就用了这个做例子，是/的格式，就不用replace了。  
+	  var dateTimeStamp = new Date(end_str);//将字符串转化为时间
+		
     var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
     var hour = minute * 60;
     var day = hour * 24;

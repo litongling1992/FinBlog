@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -59,10 +60,10 @@ public class EssayController {
         Map<String, Object> map = new HashMap<>();
         try {
 
-            //更新文章信息
-            Date dNow = new Date( );
+            Date date = new Date( );
             SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
-            emp.setCreateTime(dNow);
+            Timestamp ts = new Timestamp(date.getTime());
+            emp.setCreateTime(ts.toString());
             empService.updateOne(emp);
             map.put("state", true);
             map.put("msg", "博客文章保存成功!");
@@ -159,10 +160,11 @@ public class EssayController {
             //过滤字符串
             String regEx="[\n`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。， 、？]";
 
-            Date dNow = new Date( );
+            Date date = new Date( );
             SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+            Timestamp ts = new Timestamp(date.getTime());
+            emp.setCreateTime(ts.toString());
 
-            emp.setCreateTime(dNow);
             //保存信息
             empService.save(emp);
             map.put("state", true);
@@ -182,9 +184,11 @@ public class EssayController {
         log.info("博客文章信息: [{}]", emp.toString());
         Map<String, Object> map = new HashMap<>();
         try {
-            Date dNow = new Date( );
+            emp.setId(null);
+            Date date = new Date( );
             SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
-            emp.setCreateTime(dNow);
+            Timestamp ts = new Timestamp(date.getTime());
+            emp.setCreateTime(ts.toString());
             //保存信息
             empService.save(emp);
             map.put("state", true);

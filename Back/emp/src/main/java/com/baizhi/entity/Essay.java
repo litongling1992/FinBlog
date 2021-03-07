@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -35,5 +36,5 @@ public class Essay implements Serializable {
     public String essayContent;
     public String labelId;
     public String labelName;
-    public Date createTime;
+    public String createTime;
 }

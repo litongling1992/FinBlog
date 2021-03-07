@@ -74,8 +74,16 @@ import Card from '@/components/card'
              pageSize: 9,
             })
             .then((response) =>{
-              this.essayList=response.data.result;
-              this.essayCount=response.data.totalSize;
+							if(response.data.state){
+								this.essayList = response.data.result;
+								this.essayCount=response.data.totalSize;
+							}else{
+								this.$message({
+								          message: '暂无文章',
+								          type: 'warning'
+								        });
+							}
+            
             })
              .catch((err)=>{
               this.isSearch = false;

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 12:31:01
- * @LastEditTime: 2021-03-07 16:43:48
+ * @LastEditTime: 2021-03-07 17:52:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Admin\src\views\Essay\AddEssay.vue
@@ -181,63 +181,30 @@ import marked from 'marked'
                     if (valid) {
                               this.isLoding = true;
                               //文件上传时 请求方式必须是post  enctype必须为multipart/form-data
-                                var formData = new FormData();
-                                var arcticle = marked(this.formData.essayContent);
-                                // formData.append("essayTitle",this.formData.essayTitle);
-                                // formData.append("essayAbout",this.formData.essayAbout);
-                                // formData.append("essayContent",arcticle);
-                                // formData.append("labelId",this.formData.labelId);
-                                // formData.append("labelName",this.formData.labelName);
-                                // formData.append("essayImg",this.formData.essayImg);
-                               // formData.append("photo",this.$refs.myPhoto.files[0]);
+                              var arcticle = marked(this.formData.essayContent);
                               this.formData.essayContent = arcticle;
                               this.formData.essayImg = this.imageUrl;
-                                if(this.essayId !='' && this.essayId > 0){
+                              if(this.essayId !='' && this.essayId > 0){
                                     this.saveById();
                                     this.isLoding = false;
                                 }else{
                                   this.$axios.post(`http://localhost:9002/api/blog/saveEssay`, this.formData)
                                         .then((res) => {
-                                              console.log(res.data);
+                                          if(res.data.state){
                                               this.$message({
                                               message: res.data.msg,
                                               type: "success"
                                               });
                                           this.resetForm();
                                           this.formData = {};
+                                          }
+                                              
                                         })
                                         .catch((err) => {
-                                            console.log("失败"+err.data);
-                                            
+                                            console.log("失败"+err.data);                                          
                                           });
                                           this.isLoding = false;
                                 }
-                                
-
-                                // this.$axios({
-                                //     method:"post",
-                                //     url:"http://localhost:9002/api/blog/saveEssay",
-                                //     data:formData,
-                                //     headers:{
-                                //         'content-type':'multipart/form-data'
-                                //     }
-                                // })
-                                // this.$axios.post(`http://localhost:9002/api/blog/saveEssay`,formData)
-                                // .then((res) =>{
-                                //     if(res.data.state){
-                                //       this.isLoding = false;
-                                //         this.formData = {};
-                                //           this.$message({
-                                //             message: res.data.msg,
-                                //             type: "success"
-                                //             });
-                                //            this.imageUrl = ''
-                                //     }
-                                //  })
-                                //   .catch((err) => {
-                                //       console.log("失败"+err.data);
-                                //       this.isLoding = false;
-                                //   });
                           }
                         })
              },

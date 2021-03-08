@@ -1,16 +1,20 @@
 <template>
   <div>
       <div class="l-banan">
-        <img 
-        :src="essayImg" class="image"> 
+        <img :src="essayImg" class="image"> 
       </div>
-      <div class="e-content"  data-aos="fade-up" v-highlight>
-        <div>
-          <h1 align='center'  style="font-size:200%;">{{essayDetail.essayTitle}}</h1>
-          <br>
-        </div>
-          <article v-html="essayContent"></article>
-		  
+      <div class="e-content"  data-aos="fade-up" >
+			<div>
+			  <h1 align='center'  style="font-size:200%;">{{essayDetail.essayTitle}}</h1>
+			  <br>
+			</div>
+			<!-- <article v-html="essayContent"></article> -->
+			<div v-highlight>
+			    <pre>
+			        <code class="styleClass" v-html="essayContent"></code>
+			    </pre>
+			</div>
+
       </div>
       <div class="e-banan"> 
       
@@ -74,6 +78,9 @@
 
 <script>
 import Card from '@/components/card'
+import 'highlight.js/styles/monokai-sublime.css';
+import hljs from "../../utils/highlight.js";
+import marked from 'marked'
   export default { 
     components: {
       Card
@@ -90,13 +97,14 @@ import Card from '@/components/card'
         count: 10,
         loading: false,
         message:'',
-        allmessages:[]
+        allmessages:[],
+		
     };
   },
   created() {
      this.getEssay();
       this.findMessage();
-     this.$router.afterEach((to,from,next)=>{
+      this.$router.afterEach((to,from,next)=>{
 　　　　window,scrollTo(0,0)
 　　})
   },
@@ -153,7 +161,7 @@ import Card from '@/components/card'
         '不管生活如何，一定要充满希望！😝',
         '年轻就要有年轻的样子。😉',
         '哎呀，来看博客呀，怪不得这么有为。😊',
-        '看了文章之后有什么要对大黄子说的吗。😊'
+        '看了文章之后有什么要说的吗。😊'
         ];
       let cons=contents[Math.floor((Math.random()*contents.length))];
       this.contente="哈哈哈：“"+cons+"”";
@@ -162,6 +170,9 @@ import Card from '@/components/card'
     getEssay(){
           this.$axios.get(`http://127.0.0.1:9002/api/blog/findOneById?id=${this.id}`)
           .then(res =>{
+			 // let arcticle = marked(res.data.result.essayContent);
+			 // 
+			 // this.essayContent = arcticle;
             this.essayContent = res.data.result.essayContent
             this.essayDetail = res.data.result
             this.essayImg = res.data.result.essayImg

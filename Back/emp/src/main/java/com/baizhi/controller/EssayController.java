@@ -55,15 +55,15 @@ public class EssayController {
     //修改文章信息
     @PostMapping("update")
     public Map<String, Object> update(@RequestBody Essay emp) throws IOException {
-        log.info("博客文章信息: [{}]", emp.toString());
-
+       // log.info("博客文章信息: [{}]", emp.toString());
         Map<String, Object> map = new HashMap<>();
         try {
 
             Date date = new Date( );
             SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+            String sDate = ft.format(date);
             Timestamp ts = new Timestamp(date.getTime());
-            emp.setCreateTime(ts.toString());
+            emp.setCreateTime(sDate);
             empService.updateOne(emp);
             map.put("state", true);
             map.put("msg", "博客文章保存成功!");
@@ -114,17 +114,15 @@ public class EssayController {
         log.info("删除博客文章的id:[{}]",id);
         Map<String, Object> map = new HashMap<>();
         try {
-            //删除员工头像
             Essay emp = empService.findOne(id);
             if(emp != null){
-                //删除员工信息
                 empService.delete(id);
             }
             //删除标题图片
             String imgFullPath =  emp.getEssayImg();
             String[] arr1=imgFullPath.split("/");
-            if(arr1.length == 3){
-                String relatePath = arr1[2];
+            if(arr1.length == 5){
+                String relatePath = arr1[4];
                 if(relatePath != null){
                     File file = new File(realPath,relatePath);
                     if(file.exists())file.delete();//删除头像
@@ -145,7 +143,7 @@ public class EssayController {
     @PostMapping("save")
     public Map<String, Object> save(@RequestBody Essay emp, MultipartFile photo,HttpServletRequest request) throws
             IOException {
-        log.info("博客文章信息: [{}]", emp.toString());
+        //log.info("博客文章信息: [{}]", emp.toString());
         log.info("头像信息: [{}]", photo.getOriginalFilename());
         Map<String, Object> map = new HashMap<>();
         try {
@@ -161,7 +159,6 @@ public class EssayController {
             String regEx="[\n`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。， 、？]";
 
             Date date = new Date( );
-            SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
             Timestamp ts = new Timestamp(date.getTime());
             emp.setCreateTime(ts.toString());
 
@@ -181,14 +178,15 @@ public class EssayController {
     @PostMapping("saveEssay")
     @CrossOrigin
     public Map<String, Object> saveEssay(@RequestBody Essay emp) throws IOException {
-        log.info("博客文章信息: [{}]", emp.toString());
+        //log.info("博客文章信息: [{}]", emp.toString());
         Map<String, Object> map = new HashMap<>();
         try {
             emp.setId(null);
             Date date = new Date( );
             SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+            String sDate = ft.format(date);
             Timestamp ts = new Timestamp(date.getTime());
-            emp.setCreateTime(ts.toString());
+            emp.setCreateTime(sDate);
             //保存信息
             empService.save(emp);
             map.put("state", true);
@@ -242,7 +240,7 @@ public class EssayController {
         Map<String,Object> map = new HashMap<>();
         try {
             List<TagsVo> tagsVos = new ArrayList<TagsVo>();
-          List<String> tags = empService.findTags();
+            List<String> tags = empService.findTags();
             for(int i=0;i<tags.size();i++){
                 TagsVo tag = new TagsVo();
                 tag.setIndex(i+1);

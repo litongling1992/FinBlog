@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-06 12:31:01
- * @LastEditTime: 2021-03-07 17:52:16
+ * @LastEditTime: 2021-03-08 11:04:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Admin\src\views\Essay\AddEssay.vue
@@ -22,6 +22,12 @@
             </el-form-item>
             <el-form-item label="分类标签" prop="labelName">
                 <el-input v-model="formData.labelName" placeholder="分类标签" class="input-satnder"></el-input>
+                <el-radio v-model="formData.labelName" label="java">Java</el-radio>
+                <el-radio v-model="formData.labelName" label="vue">Vue</el-radio>
+                <el-radio v-model="formData.labelName" label="Spring">Spring</el-radio>
+                 <el-radio v-model="formData.labelName" label="MyBatis">MyBatis</el-radio>
+                <el-radio v-model="formData.labelName" label="Redis">Redis</el-radio>
+                <el-radio v-model="formData.labelName" label="多线程">多线程</el-radio>
             </el-form-item>
              <!-- <el-form-item label="标题图" prop="essayImg">
                <input id="pho" type="file" ref="myPhoto" name="photo" />

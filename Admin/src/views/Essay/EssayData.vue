@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-29 15:07:45
- * @LastEditTime: 2021-03-07 15:02:02
+ * @LastEditTime: 2021-03-08 09:26:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blog-front\src\views\DataManager\TablesData.vue
@@ -124,7 +124,6 @@ export default class EssayData extends Vue{
     //  })
       (this as any).$axios.post(`/api/blog/findEssay`,pageQuery)
       .then((res: any) => {
-         console.log("输出res:"+ res.data.pageSize);
          this.tableData = res.data.result;
          this.total = res.data.totalSize;
       })

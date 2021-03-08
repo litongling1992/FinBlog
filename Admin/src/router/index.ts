@@ -75,7 +75,7 @@ export const asyncRouterMap = [
       {
         path: '/addEssay',
         name: 'addEssay',
-        meta: { title: '新增文章', icon: 'el-icon-coordinate' , roles: ['admin'] },
+        meta: { title: '新增文章', icon: 'el-icon-notebook-2' , roles: ['admin'] },
        // component: () => import('@/views/Essay/AddEssay.vue')
        component: () => import('@/views/Editor/VueEditor.vue')
       }
@@ -92,7 +92,7 @@ export const asyncRouterMap = [
       {
         path: '/essayData',
         name: 'essayData',
-        meta: { title: '文章管理', icon: 'el-icon-coordinate' , roles: ['admin'] },
+        meta: { title: '文章管理', icon: 'el-icon-suitcase' , roles: ['admin'] },
         component: () => import('@/views/Essay/EssayData.vue')
       }
     ]
